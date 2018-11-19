@@ -2,6 +2,10 @@
 
 > a frontend for the dict api
 
+## [Deployed to surge](http://efficient-loss.surge.sh) 
+
+## [Backend Repo](https://github.com/rkloecker/eng-ger-dictionary-app)
+
 ## Build Setup
 
 ``` bash
