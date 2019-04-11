@@ -28,7 +28,7 @@
                     <input id="desc" type="text"  v-model="word.description"  class="form-control" >
                   </div>
 
-                  <div id="buttons">
+                  <div id="buttons" class="mt-3 mb-3">
                     <button v-if="smit" id="btnSubmit" v-on:click.prevent="formSubmit" class="btn btn-success">Submit</button>
                     <button v-if="edt" v-on:click.prevent="formEdit" id="btnEdit" class="btn btn-danger">Edit</button>
                     <button id="btnQuery" class="btn btn-primary" v-on:click.prevent="search">Search</button>
