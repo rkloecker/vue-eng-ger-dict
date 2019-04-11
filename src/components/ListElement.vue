@@ -1,7 +1,7 @@
 <template>
 <div class="row mb-2">
    <div class="col col-xs-3">	{{word.english | uppercase}} </div>
-   <div class="col col-xs-3">	{{word.german | foo}} </div>
+   <div class="col col-xs-3">	{{word.german | join}} </div>
    <div class="col col-xs-3">		{{word.description}} </div>
    <div class="col col-xs-3">
      <button v-on:click="edit(word._id)" class="btn btn-success">
@@ -28,15 +28,11 @@ export default {
       // return value.toUpperCase();
       return value;
     },
-    foo: function(value) {
+    join: function(value) {
       return value.join(",");
     }
   },
   methods: {
-    bar(x) {
-      // return x.toUpperCase();
-      return x;
-    },
     edit: function(value) {
       this.$emit("editme", value);
       window.location.hash = "example";

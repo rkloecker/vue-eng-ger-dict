@@ -14,7 +14,6 @@
               <div class="col-md-12">
                 <form id="sub">
 
-
                   <div class="form-group">
                     <label>English</label>
                     <!-- <input id="eng" type="text" :value="word.english" v-on:change="word.english = $event.target.value" class="form-control" > -->
@@ -63,14 +62,6 @@ export default {
       errmsg: ""
     };
   },
-  // updated() {
-  //   // localprop: this.word;
-  //   console.log("updated",this.word.english);
-  // },
-  // created() {
-  //   // localprop: this.word;
-  //   console.log("created",this.word.english);
-  // },
   methods: {
     formSubmit() {
       if (this.isValid() && this.validateInput()) {
@@ -78,7 +69,6 @@ export default {
         this.clearfields();
         this.touchedSub = false;
       } else {
-        console.log("not valid");
         this.touchedSub = true;
         this.errmsg = "Please fill out the complete form, use only letters and -";
         setTimeout(() => (this.touchedSub = false), 2000);
@@ -90,7 +80,6 @@ export default {
         this.clearfields();
         this.touchedSub = false;
       } else {
-         console.log("not valid edit");
         this.touchedSub = true;
         this.errmsg = "Please fill out the complete form, use only letters and -";
         setTimeout(() => (this.touchedSub = false), 2000);
@@ -129,7 +118,6 @@ export default {
       return !/[^a-zäöüß,-\s]/i.test(str);
     },
     validateInput(){
-      console.log("validated");
       return this.isValidWord(this.word.english)  && this.isValidWord(this.word.german) && this.isValidWord(this.word.description);
     }
   }

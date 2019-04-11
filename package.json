@@ -1,8 +1,8 @@
 {
   "name": "vue-dictionary",
-  "version": "1.0.0",
-  "description": "a frontend for the dict api",
-  "author": "R K <blah@eample.com>",
+  "version": "1.0.1",
+  "description": "a vue JS frontend for the dictionary api",
+  "author": "rkloecker",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

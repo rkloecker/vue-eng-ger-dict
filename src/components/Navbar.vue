@@ -28,7 +28,6 @@
 
 <script>
 export default {
-  // props: ["word", "smit", "edt"],
   data() {
     return {
      direction: 'asc',

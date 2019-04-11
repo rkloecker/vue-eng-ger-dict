@@ -1,8 +1,8 @@
 <template>
    <tr>
 			<td>{{word.english | uppercase}}</td>
-			<td>{{word.german | foo}}</td>
-			<td>{{bar(word.description)}}</td>
+			<td>{{word.german | join}}</td>
+			<td>{{word.description}}</td>
 			<td><div class="edit_delete" :id="word._id">
         <button v-on:click="edit(word._id)" class="btn btn-success">
         <i class="far fa-sm">&#xf044;</i>
@@ -26,15 +26,11 @@ export default {
       // return value.toUpperCase();
       return value;
     },
-    foo: function(value) {
+    join: function(value) {
       return value.join(",");
     }
   },
   methods: {
-    bar(x) {
-      // return x.toUpperCase();
-      return x;
-    },
     edit: function(value) {
        this.$emit('editme', value);
        	window.location.hash = 'example';
@@ -49,18 +45,5 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width: 560px) {
-  /* button {
-   width: 50% !important;
-   
-  }
-   i {
-   width: 30% !important;
-   height: 30% !important;
-  }
-  .edit_delete{
-     width: 50% !important;
-  } */
-  
-}
+@media screen and (max-width: 560px) {}
 </style>
