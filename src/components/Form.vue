@@ -29,9 +29,9 @@
                   </div>
 
                   <div id="buttons" class="mt-3 mb-3">
-                    <button v-if="isSubmit" id="btnSubmit" v-on:click.prevent="formSubmit" class="btn btn-success">Submit</button>
-                    <button v-if="!isSubmit" v-on:click.prevent="formEdit" id="btnEdit" class="btn btn-info">Edit</button>
-                    <button id="btnQuery" class="btn btn-primary" v-on:click.prevent="search">Search</button>
+                    <button v-if="isSubmit" id="btnSubmit" v-on:click.prevent="formSubmit" class="btn btn-primary">Add</button>
+                    <button v-if="!isSubmit" v-on:click.prevent="formEdit" id="btnEdit" class="btn btn-success">Edit</button>
+                    <button id="btnQuery" class="btn btn-info" v-on:click.prevent="search">Search</button>
                     <button id="btnCancel" class="btn btn-danger" v-on:click.prevent="cancel">Cancel</button>
                   </div>
                   <p v-if="!isValid()  && touchedSub" class="error">{{errmsg}}</p>
@@ -53,8 +53,8 @@ export default {
   props: ["word", "isSubmit"],
   data() {
     return {
-      add: true,
-      edit: false,
+      // add: true,
+      // edit: false,
       valid: false,
       searchValid: false,
       touchedSub: false,

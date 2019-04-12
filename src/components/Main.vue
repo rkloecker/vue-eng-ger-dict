@@ -18,8 +18,8 @@
   <div  v-if="!error" class="container mt-3 grid-striped">
     <ListHead v-if="!loading"/>
      <ListElement
-   v-on:edit="getItem($event)"
-   v-on:remove="deleteItem($event)"
+   v-on:edit="getWord($event)"
+   v-on:remove="deleteWord($event)"
     v-for="aword in wordList"
       v-bind:word="aword"
       v-bind:key="aword.id"
@@ -46,7 +46,7 @@ export default {
       loading: true,
       submitMode: true, // if true: edit disabled and vice versa
       error: false,
-      theId: "",
+      wordId: "",
       singleWord: {
         english: "",
         german: "",
@@ -54,20 +54,35 @@ export default {
       },
       herokuUrl: "https://eng-ger-dictio.herokuapp.com/api/words",
       localUrl: "http://localhost:3000/api/words",
-      URL: "https://eng-ger-dictio.herokuapp.com/api/words"
+      URL: ""
     };
   },
   methods: {
+    setEnvironment(){
+      if(process.env.NODE_ENV === "development"){
+        console.log("env:develop")
+        this.URL = this.localUrl;
+      }
+      else if(process.env.NODE_ENV === "production"){
+        this.URL = this.herokuUrl;
+         console.log("env:product")
+      }
+      else {
+        this.URL = this.herokuUrl;
+         console.log("env:other")
+      }
+    },
     // if cancel is pressed only toggle if in submitmode
     enableSubmitMode(){
       if(!this.submitMode){
         this.submitMode = true;
       }
     },
-    getItems() {
-      console.log(process.env.VUE_APP_MY_ENV_VARIABLE)
-      console.log(process.env)
+    getWords() {
+      // console.log(process.env.VUE_APP_MY_ENV_VARIABLE)
+      // console.log(process.env)
       this.loading = true;
+      // fetch(`${this.URL}/?sort=english:asc`)
       fetch(this.URL)
         .then(res => res.json())
         .then(data => {
@@ -77,16 +92,16 @@ export default {
         .catch(err => console.log(err));
     },
     getNavbarList(str) {
-      fetch(this.URL + str)
+      fetch(`${this.URL}${str}`)
         .then(res => res.json())
         .then(data => (this.wordList = data))
         .catch(err => console.log(err));
     },
-    getItem(id) {
+    getWord(id) {
        this.loading = true;
-      this.theId = id;
+      this.wordId = id;
       this.submitMode = false;
-      fetch(this.URL + "/" + id)
+      fetch(`${this.URL}/${id}`)
         .then(res => res.json())
         .then(data => {
           this.singleWord.english = data.english;
@@ -99,7 +114,8 @@ export default {
     edit(obj) {
       this.submitMode = true;
       // console.log(this.submitMode)
-      fetch(this.URL + "/" + this.theId, {
+      // console.log(obj)
+      fetch(`${this.URL}/${this.wordId}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json"
@@ -107,7 +123,7 @@ export default {
         method: "PUT",
         body: JSON.stringify(obj)
       })
-        .then(this.getItems)
+        .then(this.getWords)
         .catch(err => console.log(err));
     },
     add(obj) {
@@ -119,14 +135,14 @@ export default {
         method: "POST",
         body: JSON.stringify(obj)
       })
-        .then(this.getItems)
+        .then(this.getWords)
         .catch(err => console.log(err));
     },
-    deleteItem(id) {
-      fetch(this.URL + "/" + id, {
+    deleteWord(id) {
+      fetch(`${this.URL}/${id}`, {
         method: "DELETE"
       })
-        .then(this.getItems)
+        .then(this.getWords)
         .catch(err => console.log(err));
     },
     searchWord(o) {
@@ -140,7 +156,7 @@ export default {
         qstr += `description=${o.description}`;
         // for descr other algo: we get an array back
         return (
-          fetch(this.URL + qstr)
+          fetch(`${this.URL}${qstr}`)
             .then(response => response.json())
             .then(data => {
               if (!data || data.length == 0) {
@@ -155,7 +171,7 @@ export default {
         );
       }
       // console.log(qstr);
-      fetch(this.URL + qstr)
+      fetch(`${this.URL}${qstr}`)
         .then(response => response.json())
         .then(data => {
           if (!data) {
@@ -168,7 +184,8 @@ export default {
     }
   },
   created() {
-    this.getItems();
+    this.setEnvironment();
+    this.getWords();
   },
   components: {
     ListElement,
