@@ -1,6 +1,6 @@
 {
   "name": "vue-dictionary",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a vue JS frontend for the dictionary api",
   "author": "rkloecker",
   "private": true,

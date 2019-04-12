@@ -1,8 +1,8 @@
 # vue-dictionary
 
-> a frontend for the dict api
+> a frontend for the dictionary api
 
-## [Deployed to surge](http://efficient-loss.surge.sh) 
+## [Deployed to surge](http://vue-dictionary.surge.sh) 
 
 ## [Backend Repo](https://github.com/rkloecker/eng-ger-dictionary-app)
 
