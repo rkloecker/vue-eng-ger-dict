@@ -1,7 +1,7 @@
 <template>
   
   <div class="container mt-3">
-     <a name="example"></a>
+     <!-- <a name="example"></a> -->
     <div class="row ">
       <div class="col-md-12">
 
@@ -29,10 +29,10 @@
                   </div>
 
                   <div id="buttons" class="mt-3 mb-3">
-                    <button v-if="smit" id="btnSubmit" v-on:click.prevent="formSubmit" class="btn btn-success">Submit</button>
-                    <button v-if="edt" v-on:click.prevent="formEdit" id="btnEdit" class="btn btn-danger">Edit</button>
+                    <button v-if="isSubmit" id="btnSubmit" v-on:click.prevent="formSubmit" class="btn btn-success">Submit</button>
+                    <button v-if="!isSubmit" v-on:click.prevent="formEdit" id="btnEdit" class="btn btn-info">Edit</button>
                     <button id="btnQuery" class="btn btn-primary" v-on:click.prevent="search">Search</button>
-                    <button id="btnCancel" class="btn btn-info" v-on:click.prevent="clearfields">Cancel</button>
+                    <button id="btnCancel" class="btn btn-danger" v-on:click.prevent="cancel">Cancel</button>
                   </div>
                   <p v-if="!isValid()  && touchedSub" class="error">{{errmsg}}</p>
                   <p v-if="!isValidSearch()  && touchedSearch " class="error">{{errmsg}}</p>
@@ -50,7 +50,7 @@
 
 <script>
 export default {
-  props: ["word", "smit", "edt"],
+  props: ["word", "isSubmit"],
   data() {
     return {
       add: true,
@@ -96,6 +96,11 @@ export default {
         setTimeout(() => (this.touchedSearch = false), 2000);
       }
     },
+    cancel(){
+      this.$emit("handleCancel");
+this.clearfields();
+
+    },
     setWord() {
       return {
         english: this.word.english,
@@ -104,6 +109,7 @@ export default {
       };
     },
     clearfields() {
+      // this.$emit("search", this.setWord());
       this.word.english = "";
       this.word.german = "";
       this.word.description = "";

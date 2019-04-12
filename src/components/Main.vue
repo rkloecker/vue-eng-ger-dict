@@ -6,21 +6,20 @@
     
     <Form 
       :word="singleWord"
-      :smit="enabled"
-      :edt="!enabled"
+      :isSubmit="submitMode"
       v-on:formSubmit="add($event)"
       v-on:formEdit="edit($event)"
+      v-on:handleCancel="enableSubmitMode()"
        v-on:search="searchWord($event)" />
        <div v-if="loading" class="container">app is loading
  <div class="trinity-rings-spinner"> <div class="circle"></div> <div class="circle"></div> <div class="circle"></div> </div>
        </div>
-      
        
   <div  v-if="!error" class="container mt-3 grid-striped">
     <ListHead v-if="!loading"/>
      <ListElement
-   v-on:editme="getItem($event)"
-   v-on:deleteme="deleteItem($event)"
+   v-on:edit="getItem($event)"
+   v-on:remove="deleteItem($event)"
     v-for="aword in wordList"
       v-bind:word="aword"
       v-bind:key="aword.id"
@@ -45,7 +44,7 @@ export default {
     return {
       wordList: [],
       loading: true,
-      enabled: true,
+      submitMode: true, // if true: edit disabled and vice versa
       error: false,
       theId: "",
       singleWord: {
@@ -59,7 +58,15 @@ export default {
     };
   },
   methods: {
+    // if cancel is pressed only toggle if in submitmode
+    enableSubmitMode(){
+      if(!this.submitMode){
+        this.submitMode = true;
+      }
+    },
     getItems() {
+      console.log(process.env.VUE_APP_MY_ENV_VARIABLE)
+      console.log(process.env)
       this.loading = true;
       fetch(this.URL)
         .then(res => res.json())
@@ -78,7 +85,7 @@ export default {
     getItem(id) {
        this.loading = true;
       this.theId = id;
-      this.enabled = false;
+      this.submitMode = false;
       fetch(this.URL + "/" + id)
         .then(res => res.json())
         .then(data => {
@@ -90,7 +97,8 @@ export default {
         .catch(err => console.log(err));
     },
     edit(obj) {
-      this.enabled = true;
+      this.submitMode = true;
+      // console.log(this.submitMode)
       fetch(this.URL + "/" + this.theId, {
         headers: {
           Accept: "application/json",

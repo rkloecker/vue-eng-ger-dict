@@ -8,7 +8,7 @@
         <i class="far fa-sm">&#xf044;</i>
         </button>
    
-			<button v-on:click="deleteMe(word._id)" class="btn btn-danger addpadding">
+			<button v-on:click="remove(word._id)" class="btn btn-danger addpadding">
         <i class="far fa-sm">&#xf2ed;</i>
       </button>
 		</div>
@@ -34,12 +34,12 @@ export default {
   },
   methods: {
     edit: function(value) {
-      this.$emit("editme", value);
-      window.location.hash = "example";
-      window.location.hash = null;
+      this.$emit("edit", value);
+     // Go to form (top of page)
+      window.scrollTo(0,0);
     },
-    deleteMe: function(value) {
-      this.$emit("deleteme", value);
+    remove: function(value) {
+      this.$emit("remove", value);
     }
   }
 };

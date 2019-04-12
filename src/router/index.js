@@ -1,14 +1,15 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Main from '@/components/Main'
+import Vue from "vue";
+import Router from "vue-router";
+import Main from "@/components/Main";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
+  mode: "history",
   routes: [
     {
-      path: '/',
-      name: 'Main',
+      path: "/",
+      name: "Main",
       component: Main
     }
   ]
@@ -16,4 +17,4 @@ export default new Router({
   // scrollBehavior (to, from, savedPosition) {
   //   return { x: 0, y: 0 }
   // }
-})
+});
